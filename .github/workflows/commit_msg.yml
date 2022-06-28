@@ -1,0 +1,28 @@
+name: CommitMsg
+
+on:
+  workflow_call:
+    outputs:
+      commit_msg:
+        description: "commit message"
+        value: ${{ jobs.recent_commit.outputs.commit_msg }}
+
+jobs:
+  recent_commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - if: github.event_name == 'push'
+        id: push_commit_msg
+        run: echo ::set-output name=push_msg::$(git log --format=%B -n 1 HEAD)
+
+      - if: github.event_name == 'pull_request'
+        id: pull_commit_msg
+        run: echo ::set-output name=pull_msg::$(git log --format=%B -n 1 HEAD^2)
+
+    outputs:
+      commit_msg: $( [ -z "${{ steps.pull_commit_msg.outputs.pull_msg }}" ] && echo "${{ steps.push_commit_msg.outputs.push_msg }}" || echo "${{ steps.pull_commit_msg.outputs.pull_msg }}" )
