@@ -6,6 +6,8 @@ on:
 
 jobs:
   test:
-    uses: jalavosus/workflows/.github/workflows/go-test.yml@v1.0.0
+    uses: jalavosus/workflows/.github/workflows/go-test.yml@v1.0.5
     with:
-      github_token: ${{ secrets.GITHUB_TOKEN }}
+      run_cmd: "go test ./..."
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}

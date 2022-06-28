@@ -6,6 +6,6 @@ on:
 
 jobs:
   lint:
-    uses: jalavosus/workflows/.github/workflows/go-lint.yml@v1.0.0
-    with:
-      github_token: ${{ secrets.GITHUB_TOKEN }}
+    uses: jalavosus/workflows/.github/workflows/go-lint.yml@v1.0.5
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
