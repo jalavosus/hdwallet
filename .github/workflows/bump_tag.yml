@@ -7,6 +7,6 @@ on:
 
 jobs:
   bump_tag:
-    uses: jalavosus/workflows/.github/workflows/bump_tag.yml@v1.1.1
+    uses: jalavosus/workflows/.github/workflows/bump_tag.yml@v1.2.0
     secrets:
       token: ${{ secrets.TAG_PAT }}

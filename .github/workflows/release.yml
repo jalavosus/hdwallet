@@ -7,7 +7,7 @@ on:
 
 jobs:
   release:
-    uses: jalavosus/workflows/.github/workflows/go-release-archive.yml@v1.1.1
+    uses: jalavosus/workflows/.github/workflows/go-release-archive.yml@v1.2.0
     with:
       package_name: hdwallet-go
       archive_files: "*.go go.mod go.sum LICENSE"

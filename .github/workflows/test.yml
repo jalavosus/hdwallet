@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    uses: jalavosus/workflows/.github/workflows/go-test.yml@v1.0.5
+    uses: jalavosus/workflows/.github/workflows/go-test-117_compat.yml@v1.2.0
     with:
       run_cmd: "go test ./..."
     secrets:
