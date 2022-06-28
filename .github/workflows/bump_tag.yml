@@ -1,0 +1,25 @@
+name: Bump Tag
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    if: ${{ contains(toJSON(github.event.commits.*.message), '[ci release]') }}
+
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v3
+
+      - name: Git Fetch Unshallow
+        run: git fetch --prune --unshallow
+
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.39.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true

@@ -1,0 +1,40 @@
+name: Test
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  test:
+    if: ${{ !contains(toJSON(github.event.commits.*.message), '[ci notest]') }}
+
+    strategy:
+      matrix:
+        go-version:
+          - 1.16.x
+          - 1.17.x
+          - 1.18.x
+        platform:
+          - ubuntu-latest
+
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: ${{ matrix.go-version }}
+
+      - name: Go modules cache
+        uses: actions/cache@v3
+        with:
+          path: ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+
+      - name: Run tests
+        run: go test ./...
