@@ -6,26 +6,7 @@ on:
       - master
 
 jobs:
-  prebuild:
-    uses: ./.github/workflows/commit_msg.yml
-
   bump_tag:
-    runs-on: ubuntu-latest
-
-    needs:
-      - prebuild
-
-    if: ${{ contains(needs.prebuild.outputs.commit_msg, '[ci release]') }}
-
-    steps:
-      - name: Git Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@1.36.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WITH_V: true
-          RELEASE_BRANCHES: "master"
+    uses: jalavosus/workflows/.github/workflows/bump_tag.yml@v1.0.0
+    with:
+      github_token: ${{ secrets.TAG_PAT }}
