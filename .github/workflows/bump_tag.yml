@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  release:
+  bump_tag:
     runs-on: ubuntu-latest
 
     if: ${{ contains(toJSON(github.event.commits.*.message), '[ci release]') }}
@@ -14,12 +14,12 @@ jobs:
     steps:
       - name: Git Checkout
         uses: actions/checkout@v3
-
-      - name: Git Fetch Unshallow
-        run: git fetch --prune --unshallow
+        with:
+          fetch-depth: 0
 
       - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@1.39.0
+        uses: anothrNick/github-tag-action@1.36.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
+          RELEASE_BRANCHES: "master"
