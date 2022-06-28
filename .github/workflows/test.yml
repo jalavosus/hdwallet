@@ -29,12 +29,17 @@ jobs:
           go-version: ${{ matrix.go-version }}
 
       - name: Go modules cache
+        id: mod_cache
         uses: actions/cache@v3
         with:
           path: ~/go/pkg/mod
           key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
           restore-keys: |
             ${{ runner.os }}-go-
+
+      - name: Go Mod Download
+        if: ${{ !steps.mod_cache.outputs.cache-hit }}
+        run: go mod download
 
       - name: Run tests
         run: go test ./...
