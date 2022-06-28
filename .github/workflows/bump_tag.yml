@@ -9,4 +9,4 @@ jobs:
   bump_tag:
     uses: jalavosus/workflows/.github/workflows/bump_tag.yml@v1.0.5
     secrets:
-      token: ${{ secrets.GITHUB_TOKEN }}
+      token: ${{ secrets.TAG_PAT }}
