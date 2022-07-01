@@ -8,6 +8,4 @@ on:
 
 jobs:
   lint:
-    uses: jalavosus/workflows/.github/workflows/go-lint-117_compat.yml@v1.2.0
-    secrets:
-      token: ${{ secrets.GITHUB_TOKEN }}
+    uses: jalavosus/workflows/.github/workflows/go-lint.yml@v1.5.1

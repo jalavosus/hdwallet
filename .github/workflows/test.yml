@@ -1,4 +1,4 @@
-name: Test
+name: Run Tests
 
 on:
   pull_request:
@@ -8,8 +8,6 @@ on:
 
 jobs:
   test:
-    uses: jalavosus/workflows/.github/workflows/go-test-117_compat.yml@v1.2.0
+    uses: jalavosus/workflows/.github/workflows/go-test.yml@v1.5.1
     with:
-      run_cmd: "go test ./..."
-    secrets:
-      token: ${{ secrets.GITHUB_TOKEN }}
+      command: "go test ./..."
